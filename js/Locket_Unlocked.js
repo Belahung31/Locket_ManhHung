@@ -57,7 +57,7 @@ if (ua.includes("Locket")) {
                 {
                     title: "Nhớ follow kênh tiktok @mahnhuwg ✨",
                     body: "Một follow của bạn, một niềm vui của mình 💛",
-                    imageURL: "https://ibb.co/9kHqNbDT"
+                    imageURL: "https://i.ibb.co/v64JH3FP/Gemini-Generated-Image-vwsfplvwsfplvwsf.png"
                 }
             ],
             primary_button_title: "Xong",
