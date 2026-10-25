@@ -10,19 +10,13 @@ var ua = $request.headers["User-Agent"] || $request.headers["user-agent"] || "";
 var obj = JSON.parse($response.body);
 
 if (ua.includes("Locket")) {
-    obj.Attention = "Chúc mừng bạn!";
+    obj.Attention = "Chúc mừng bạn! Vui lòng không sử dụng chúng dưới mục đích thương mại!";
     obj.entries = obj.entries || {};
     
+    // ============================================================
+    // 1. CẤU HÌNH GOLD, FEATURE GATES & PAYWALL
+    // ============================================================
     Object.assign(obj.entries, {
-        // ============================================================
-        // KÍCH HOẠT VÀ HIỂN THỊ HUY HIỆU GOLD
-        // ============================================================
-        profile_badge_visible: "true",           // Bật hiển thị badge trên profile
-        show_profile_badge: "true",              // Ép hiển thị badge
-        badge_type: "gold",                      // Loại badge Gold
-        badge_since_date: "2026-10-25T00:00:00Z", // Ngày hiển thị "Thành viên kể từ..."
-        
-        // Cấu hình Feature Gates
         feature_gates: JSON.stringify({
             app_icon_picker: "enabled",
             camera_roll: "enabled",
@@ -32,7 +26,7 @@ if (ua.includes("Locket")) {
             longer_video: "enabled",
             unlimited_friends: "enabled",
             priority_support: "enabled",
-            profile_badge: "enabled",            // Cho phép tính năng profile_badge
+            profile_badge: "enabled",
             remove_ads: "enabled",
             video: "enabled",
             custom_widget_frames: "enabled",
@@ -45,6 +39,14 @@ if (ua.includes("Locket")) {
             locket_views: true,
             remove_ads: true,
             custom_widget_frames: true
+        }),
+        paywall_presentation_config: JSON.stringify({
+            uid: "paywall_testflight",
+            onboarding: false,
+            after_sent_moment: false,
+            on_foreground: false,
+            interval: 2592000,
+            profile_banner: true
         }),
         feature_discovery_popup_config: JSON.stringify({
             tag: "LOCKET GOLD",
@@ -65,12 +67,10 @@ if (ua.includes("Locket")) {
             use_local_time_zone: true
         }),
         android_subscribe_gold_button_enabled: "false",
+        profile_badge_visible: "true",
         lunar_new_year_app_icon_enabled: "true",
         settings_tiktok_url: "https://tiktok.com/@mahnhuwg"
     });
-}
-
-$response.body = JSON.stringify(obj);
 
     // ============================================================
     // 2. CHẶN QUẢNG CÁO & TẮT TRACKING (SENTRY)
